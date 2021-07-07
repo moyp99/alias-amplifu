@@ -2,49 +2,60 @@ import "./App.css";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import { useState, useEffect } from "react";
-import Test from "./components/Test";
+import { useState, useEffect, useContext } from "react";
+import Login from "./components/Login";
+import AppContext from "./context/AppContext";
 
 Amplify.configure(awsconfig);
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const AssessLoggedInState = () => {
-    Auth.currentAuthenticatedUser().then(() => {
-      setLoggedIn(true);
-    }).catch(() => {
-      setLoggedIn(false);
-    })
-  }
+  const { loggedIn, setLoggedIn } = useContext(AppContext);
 
   const [user, setUser] = useState();
-  const fetchData = async () => {
-    setUser(await Auth.currentSession());
+
+  const AssessLoggedInState = () => {
+    Auth.currentAuthenticatedUser()
+      .then(() => {
+        setLoggedIn(true);
+      })
+      .catch(() => {
+        setLoggedIn(false);
+      });
   };
 
+  // const fetchData = async () => {
+  //   setUser(await Auth.currentSession());
+  // };
+
   useEffect(() => {
-    fetchData();
+    AssessLoggedInState();
   }, []);
 
   return (
     <div className="App">
-      {user !== undefined && (
-         
-          <Switch>
-            <Route path="/test">
-              <Test/>
-            </Route>
-            <Route path="/">
-            <Dashboard user={user} />
-            </Route>
-          </Switch>
-        
-          
-     
-      )}
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/">
+          {loggedIn === true ? (
+            <Dashboard
+              signOut={signOut}
+              setLoggedIn={setLoggedIn}
+              user={user}
+            />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+      </Switch>
     </div>
   );
 }
