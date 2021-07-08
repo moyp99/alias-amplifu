@@ -16,7 +16,7 @@ import AppContext from "./context/AppContext";
 Amplify.configure(awsconfig);
 
 function App() {
-  const { loggedIn, setLoggedIn } = useContext(AppContext);
+  const { setLoggedIn } = useContext(AppContext);
 
   const [user, setUser] = useState();
 
@@ -45,15 +45,7 @@ function App() {
           <Login />
         </Route>
         <Route path="/">
-          {loggedIn === true ? (
-            <Dashboard
-              signOut={signOut}
-              setLoggedIn={setLoggedIn}
-              user={user}
-            />
-          ) : (
-            <Redirect to="/login" />
-          )}
+          <Dashboard  />
         </Route>
       </Switch>
     </div>
