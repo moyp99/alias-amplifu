@@ -16,7 +16,7 @@ import AppContext from "./context/AppContext";
 Amplify.configure(awsconfig);
 
 function App() {
-  const { setLoggedIn } = useContext(AppContext);
+  const { loggedIn, setLoggedIn } = useContext(AppContext);
 
   const [user, setUser] = useState();
 
