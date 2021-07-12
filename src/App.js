@@ -1,24 +1,22 @@
-import "./App.css";
+import "./styles/Global.css";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  Redirect
 } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import { useState, useEffect, useContext } from "react";
 import Login from "./components/Login";
 import AppContext from "./context/AppContext";
+import Test from "./components/Test";
 
 Amplify.configure(awsconfig);
 
 function App() {
-  const { loggedIn, setLoggedIn } = useContext(AppContext);
-
-  const [user, setUser] = useState();
+  const { loggedIn, setLoggedIn, user } = useContext(AppContext);
 
   const AssessLoggedInState = () => {
     Auth.currentAuthenticatedUser()
@@ -40,14 +38,20 @@ function App() {
 
   return (
     <div className="App">
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <Dashboard  />
-        </Route>
-      </Switch>
+    
+      <Router>
+        <Switch>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/test">
+            <Test />
+          </Route>
+          <Route exact path="/">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

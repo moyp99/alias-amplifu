@@ -1,0 +1,54 @@
+.side-nav {
+  width: 19%;
+  height: 100vh;
+  background-color: #fbfbfb;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.7fr 1.6fr 0.4fr;
+
+  .logo {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    margin: auto;
+    img {
+      width: 80%;
+      margin: 10%;
+    }
+  }
+
+  .menu {
+    grid-column: 1;
+    grid-row: 2;
+
+    padding: 0 10%;
+    div {
+      width: 80%;
+      display: flex;
+      p {
+        margin-left: 10%;
+        color: #515151;
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .profile {
+    grid-column: 1;
+    grid-row: 3;
+    background-color: #c4c4c4;
+    padding: 0 10%;
+    display: flex;
+    align-items: center;
+    img{
+        height: 36px;   
+    }
+    p {
+      margin-left: 10%;
+      color: #515151;
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+}

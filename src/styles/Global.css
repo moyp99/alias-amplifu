@@ -5,9 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffff;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.btn{
+  padding: 1rem 1.5rem;
+  border-radius: 3px;
+  color: #515151;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: transparent;
+  border: 1px solid #000;
 }

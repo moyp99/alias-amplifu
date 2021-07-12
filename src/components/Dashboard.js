@@ -1,23 +1,39 @@
-import React, { useContext } from "react";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+import React, { useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import AppContext from "../context/AppContext";
+import { Auth } from "aws-amplify";
+import '../styles/Dashboard.scss'
+import SideNav from "./Dashboard/SideNav";
+import ClientDash from "./Dashboard/ClientDash";
+import Preview from "./Dashboard/Preview";
 
-const Dashboard = ({ user }) => {
-  const { loggedIn, setLoggedIn, signOut } = useContext(AppContext);
+const Dashboard = () => {
+  const { loggedIn, signOut, setUser, user } = useContext(AppContext);
+
+  useEffect(async () => {
+    if (loggedIn) {
+      await Auth.currentAuthenticatedUser().then((res) => {
+        setUser(res);
+        return res
+      }).then(() => {
+          console.log(user)
+      })
+    }
+  }, []);
   return (
-    <div>
-      {loggedIn ? (
-        <button onClick={signOut} className="btn">
-          Sign out
-        </button>
-      ) : (
-        <Redirect to="/login" />
-      )}
-
-      {console.log(user)}
-      <h1>Hello: {user.idToken.payload.email}</h1>
-      <h2>You are: {user.idToken.payload["cognito:groups"][0]} </h2>
+    <div className="dashboard">
+      {loggedIn && user ? (
+        <>
+        <SideNav/>
+        <ClientDash/>
+        <Preview/>
+          {/* <button onClick={signOut} className="btn">
+            Sign out
+          </button>
+          <h1>Hello: {user.attributes.email}</h1>
+          <h2>You are: {user.signInUserSession.idToken.payload["cognito:groups"][0]} </h2> */}
+        </>
+      ) : <Redirect to="/login" />}
     </div>
   );
 };
