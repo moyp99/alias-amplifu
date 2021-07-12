@@ -11,7 +11,7 @@ import Dashboard from "./components/Dashboard";
 import { useState, useEffect, useContext } from "react";
 import Login from "./components/Login";
 import AppContext from "./context/AppContext";
-import Test from "./components/Test";
+import Signup from "./components/Signup";
 
 Amplify.configure(awsconfig);
 
@@ -44,8 +44,8 @@ function App() {
           <Route exact path="/login">
             <Login />
           </Route>
-          <Route exact path="/test">
-            <Test />
+          <Route exact path="/signup">
+            <Signup />
           </Route>
           <Route exact path="/">
             <Dashboard />
