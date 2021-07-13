@@ -29,7 +29,7 @@ function App() {
   };
 
   // const fetchData = async () => {
-  //   setUser(await Auth.currentSession());
+  //   setUser(await Auth.currentSession()); //git mod
   // };
 
   useEffect(() => {
